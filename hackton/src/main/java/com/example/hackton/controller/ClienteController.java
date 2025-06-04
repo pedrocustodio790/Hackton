@@ -2,6 +2,7 @@ package com.example.hackton.controller;
 
 
 
+import com.example.hackton.DTO.ClienteLoginDTO;
 import com.example.hackton.DTO.ClienteRequestDTO;
 import com.example.hackton.DTO.ClienteResponseDTO;
 import com.example.hackton.service.ClienteService;
@@ -24,8 +25,8 @@ public class ClienteController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ClienteResponseDTO> login(@RequestBody ClienteRequestDTO dto) {
-        return clienteService.login(dto.getEmail(), dto.getSenha())
+    public ResponseEntity<ClienteResponseDTO> login(@RequestBody ClienteLoginDTO loginDto) {
+        return clienteService.login(loginDto.getEmail(), loginDto.getSenha())
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(401).build());
     }
