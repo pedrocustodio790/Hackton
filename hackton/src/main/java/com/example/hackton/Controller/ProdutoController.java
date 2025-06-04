@@ -1,4 +1,3 @@
-// Corrigindo e melhorando o ProdutoController
 package com.example.hackton.Controller;
 
 import com.example.hackton.DTO.*;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,18 +23,17 @@ public class ProdutoController {
         this.produtoService = produtoService;
     }
 
-    // =============== CRUD BÁSICO ===============
+    // ======= CRUD =======
 
     @PostMapping
-    public ResponseEntity<ProdutoResponseDTO> criarProduto(@Valid @RequestBody ProdutoRequestDTO dto) {
+    public ResponseEntity<ProdutoResponseDTO> criarProduto(@RequestBody ProdutoRequestDTO dto) {
         Produto produto = produtoService.criarProduto(ProdutoMapper.toEntity(dto));
         return ResponseEntity.status(HttpStatus.CREATED).body(ProdutoMapper.toDTO(produto));
     }
 
     @GetMapping
     public ResponseEntity<List<ProdutoResponseDTO>> listarTodos() {
-        List<ProdutoResponseDTO> produtos = produtoService.listarTodosProdutos()
-                .stream()
+        List<ProdutoResponseDTO> produtos = produtoService.listarTodosProdutos().stream()
                 .map(ProdutoMapper::toDTO)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(produtos);
@@ -52,7 +49,7 @@ public class ProdutoController {
     @PutMapping("/{id}")
     public ResponseEntity<ProdutoResponseDTO> atualizarProduto(
             @PathVariable Long id,
-            @Valid @RequestBody ProdutoRequestDTO dto) {
+            @RequestBody ProdutoRequestDTO dto) {
 
         return produtoService.atualizarProduto(id, ProdutoMapper.toEntity(dto))
                 .map(produto -> ResponseEntity.ok(ProdutoMapper.toDTO(produto)))
@@ -67,7 +64,7 @@ public class ProdutoController {
         return ResponseEntity.notFound().build();
     }
 
-    // =============== OPERAÇÕES DE ESTOQUE ===============
+    // ======= ESTOQUE =======
 
     @GetMapping("/{id}/estoque")
     public ResponseEntity<EstoqueDTO> consultarEstoque(@PathVariable Long id) {
@@ -101,13 +98,13 @@ public class ProdutoController {
     }
 
     @DeleteMapping("/{id}/estoque")
-    public ResponseEntity<Void> zerarEstoque(@PathVariable Long id) {
+    public ResponseEntity<Object> zerarEstoque(@PathVariable Long id) {
         return produtoService.zerarEstoque(id)
                 .map(p -> ResponseEntity.noContent().build())
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // =============== OPERAÇÕES DE MARCA ===============
+    // ======= MARCAS =======
 
     @GetMapping("/marcas")
     public ResponseEntity<MarcasResponseDTO> listarMarcas() {
@@ -127,13 +124,13 @@ public class ProdutoController {
     }
 
     @DeleteMapping("/{id}/marca")
-    public ResponseEntity<Void> removerMarca(@PathVariable Long id) {
+    public ResponseEntity<Object> removerMarca(@PathVariable Long id) {
         return produtoService.removerMarca(id)
                 .map(p -> ResponseEntity.noContent().build())
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // =============== OPERAÇÕES DE DESCRIÇÃO ===============
+    // ======= DESCRIÇÃO =======
 
     @GetMapping("/{id}/descricao")
     public ResponseEntity<DescricaoDTO> consultarDescricao(@PathVariable Long id) {
@@ -157,27 +154,25 @@ public class ProdutoController {
     }
 
     @DeleteMapping("/{id}/descricao")
-    public ResponseEntity<Void> removerDescricao(@PathVariable Long id) {
+    public ResponseEntity<Object> removerDescricao(@PathVariable Long id) {
         return produtoService.removerDescricao(id)
                 .map(p -> ResponseEntity.noContent().build())
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // =============== OPERAÇÕES DE IMAGENS ===============
+    // ======= IMAGENS =======
 
     @GetMapping("/{id}/imagens")
     public ResponseEntity<List<ImagemDTO>> listarImagens(@PathVariable Long id) {
         return produtoService.listarImagens(id)
-                .map(imagens -> {
-                    List<ImagemDTO> dtos = imagens.stream()
-                            .map(url -> {
-                                ImagemDTO dto = new ImagemDTO();
-                                dto.setUrl(url);
-                                return dto;
-                            })
-                            .collect(Collectors.toList());
-                    return ResponseEntity.ok(dtos);
-                })
+                .map(imagens -> imagens.stream()
+                        .map(url -> {
+                            ImagemDTO dto = new ImagemDTO();
+                            dto.setUrl(url);
+                            return dto;
+                        })
+                        .collect(Collectors.toList()))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -192,7 +187,7 @@ public class ProdutoController {
     }
 
     @DeleteMapping("/{id}/imagens")
-    public ResponseEntity<Void> removerImagem(
+    public ResponseEntity<Object> removerImagem(
             @PathVariable Long id,
             @RequestParam String url) {
 
