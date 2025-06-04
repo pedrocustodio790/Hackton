@@ -16,5 +16,7 @@ public class Cliente {
     private Long id;
     private String nome;
     private String email;
+    @Column(nullable = false)
+    private String senha;
     private String endereco;
 }
