@@ -1,10 +1,11 @@
-package com.example.hackton.controller;
+package com.example.hackton.Controller;
 
 
 
+import com.example.hackton.DTO.ClienteLoginDTO;
 import com.example.hackton.DTO.ClienteRequestDTO;
 import com.example.hackton.DTO.ClienteResponseDTO;
-import com.example.hackton.service.ClienteService;
+import com.example.hackton.Service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +25,8 @@ public class ClienteController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ClienteResponseDTO> login(@RequestBody ClienteRequestDTO dto) {
-        return clienteService.login(dto.getEmail(), dto.getSenha())
+    public ResponseEntity<ClienteResponseDTO> login(@RequestBody ClienteLoginDTO loginDto) {
+        return clienteService.login(loginDto.getEmail(), loginDto.getSenha())
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(401).build());
     }

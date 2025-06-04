@@ -1,4 +1,4 @@
-package com.example.hackton.entity;
+package com.example.hackton.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
