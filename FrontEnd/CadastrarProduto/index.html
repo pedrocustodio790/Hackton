@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechNova</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <header>
+    <h1>TechNova</h1>
+    <button id="btn-add">Adicionar Produto</button>
+  </header>
+
+  <main>
+    <section id="produtos" class="grid"></section>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h2>Novo Produto</h2>
+      <input type="text" id="nome" placeholder="Nome do produto" />
+      <input type="text" id="descricao" placeholder="Descrição" />
+      <input type="number" id="preco" placeholder="Preço" />
+      <input type="number" id="estoque" placeholder="Quantidade em estoque" />
+
+      <div class="buttons">
+        <button class="btn-outline" id="cancelar">Cancelar</button>
+        <button class="btn-primary" id="salvar">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="Js/script.js"></script>
+</body>
+</html>
