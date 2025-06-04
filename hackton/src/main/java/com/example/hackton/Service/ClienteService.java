@@ -1,12 +1,12 @@
-package com.example.hackton.service;
+package com.example.hackton.Service;
 
 
 
 
 import com.example.hackton.DTO.ClienteRequestDTO;
 import com.example.hackton.DTO.ClienteResponseDTO;
-import com.example.hackton.entity.Cliente;
-import com.example.hackton.repository.ClienteRepository;
+import com.example.hackton.Entity.Cliente;
+import com.example.hackton.Repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

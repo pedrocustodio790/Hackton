@@ -1,7 +1,7 @@
-package com.example.hackton.repository;
+package com.example.hackton.Repository;
 
 
-import com.example.hackton.entity.Cliente;
+import com.example.hackton.Entity.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
