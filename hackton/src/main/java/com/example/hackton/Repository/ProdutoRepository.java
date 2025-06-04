@@ -10,4 +10,4 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     @Query("SELECT DISTINCT p.fabricante FROM Produto p WHERE p.fabricante IS NOT NULL")
     List<String> findDistinctFabricante();
 }
-}
+
