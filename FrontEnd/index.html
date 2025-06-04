@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TechNova - Loja</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechNova</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+
   <header>
     <h1>TechNova</h1>
     <button id="btn-add">Adicionar Produto</button>
@@ -17,15 +18,18 @@
   </main>
 
   <!-- Modal -->
-  <div id="modal" class="modal hidden">
+  <div class="modal" id="modal">
     <div class="modal-content">
       <h2>Novo Produto</h2>
-      <input type="text" id="nome" placeholder="Nome" />
+      <input type="text" id="nome" placeholder="Nome do produto" />
       <input type="text" id="descricao" placeholder="Descrição" />
-      <input type="number" id="preco" placeholder="Preço" />
-      <input type="number" id="estoque" placeholder="Estoque" />
-      <button onclick="salvarProduto()">Salvar</button>
-      <button onclick="fecharModal()">Cancelar</button>
+      <input type="number" id="preco" placeholder="Preço (R$)" />
+      <input type="number" id="estoque" placeholder="Quantidade em estoque" />
+
+      <div class="buttons">
+        <button class="btn-outline" id="cancelar">Cancelar</button>
+        <button class="btn-primary" id="salvar">Salvar</button>
+      </div>
     </div>
   </div>
 
