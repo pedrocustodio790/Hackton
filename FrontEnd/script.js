@@ -1,67 +1,46 @@
-const apiUrl = "http://localhost:8080/api/produtos";
+const modal = document.getElementById("modal");
+const btnAdd = document.getElementById("btn-add");
+const btnCancelar = document.getElementById("cancelar");
+const btnSalvar = document.getElementById("salvar");
 
-document.addEventListener("DOMContentLoaded", listarProdutos);
-document.getElementById("btn-add").onclick = abrirModal;
+btnAdd.addEventListener("click", () => {
+  modal.style.display = "flex";
+});
 
-function listarProdutos() {
-  fetch(apiUrl)
-    .then(res => res.json())
-    .then(data => {
-      const container = document.getElementById("produtos");
-      container.innerHTML = "";
-      data.forEach(prod => {
-        container.innerHTML += `
-          <div class="card">
-            <h3>${prod.nome}</h3>
-            <p>${prod.descricao}</p>
-            <p><strong>R$ ${prod.preco.toFixed(2)}</strong></p>
-            <p>Estoque: ${prod.estoque}</p>
-            <button onclick="atualizarEstoque(${prod.id})">📝 Atualizar Estoque</button>
-            <button onclick="removerProduto(${prod.id})">❌ Remover</button>
-          </div>
-        `;
-      });
-    });
-}
+btnCancelar.addEventListener("click", fecharModal);
 
-function abrirModal() {
-  document.getElementById("modal").classList.remove("hidden");
-}
+btnSalvar.addEventListener("click", () => {
+  const nome = document.getElementById("nome").value.trim();
+  const descricao = document.getElementById("descricao").value.trim();
+  const preco = parseFloat(document.getElementById("preco").value);
+  const estoque = parseInt(document.getElementById("estoque").value);
+
+  if (!nome || !descricao || isNaN(preco) || isNaN(estoque)) {
+    alert("Por favor, preencha todos os campos corretamente.");
+    return;
+  }
+
+  const novoProduto = { nome, descricao, preco, estoque };
+  console.log("Produto salvo:", novoProduto);
+
+  // Aqui você pode fazer um fetch para API se quiser:
+  // fetch('/api/produtos', {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify(novoProduto)
+  // })
+
+  fecharModal();
+});
 
 function fecharModal() {
-  document.getElementById("modal").classList.add("hidden");
+  modal.style.display = "none";
+  limparCampos();
 }
 
-function salvarProduto() {
-  const produto = {
-    nome: document.getElementById("nome").value,
-    descricao: document.getElementById("descricao").value,
-    preco: parseFloat(document.getElementById("preco").value),
-    estoque: parseInt(document.getElementById("estoque").value),
-  };
-
-  fetch(apiUrl, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(produto)
-  }).then(() => {
-    fecharModal();
-    listarProdutos();
-  });
-}
-
-function atualizarEstoque(id) {
-  const novoEstoque = prompt("Novo valor de estoque:");
-  fetch(`${apiUrl}/${id}/estoque`, {
-    method: "PUT",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({estoque: parseInt(novoEstoque)})
-  }).then(listarProdutos);
-}
-
-function removerProduto(id) {
-  if (confirm("Deseja remover este produto?")) {
-    fetch(`${apiUrl}/${id}`, {method: "DELETE"})
-      .then(listarProdutos);
-  }
+function limparCampos() {
+  document.getElementById("nome").value = "";
+  document.getElementById("descricao").value = "";
+  document.getElementById("preco").value = "";
+  document.getElementById("estoque").value = "";
 }
