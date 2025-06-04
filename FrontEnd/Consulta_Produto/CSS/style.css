@@ -1,3 +1,96 @@
+/* O reset básico serve para anular os estilos padrão dos navegadores, que aplicam margens, espaçamentos,
+ tamanhos de fonte e outros estilos automaticamente em vários elementos HTML. */
+
+     /* Sem esse reset, elementos como <h1>, <p>, <ul> e <body> já vêm com margens 
+     ou tamanhos que podem quebrar seu layout ou causar espaçamentos inesperados.
+ */
+
+/* Reset Básico */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo */
 body{
-    background-color: aqua;
+    front-family: Arial, sans-serif;
+    background-color: ;
+    padding: 30px;
+    color: ;
+}
+
+/* Titulo */
+h1{
+    text-align: center;
+    margin-bottom: 30px;
+    color: ;
+}
+
+/* Formulario busca */
+form{
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: ;
+    padding: 20px 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0, 0,0.1)
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label{
+    display: block;
+    margin-bottom: 6px;
+    front-weight: bold;
+}
+
+input[type = "text"]{
+    width: 100%;
+    padding: 10px;
+    border: 12px solid #ccc;
+    border-radius: 5px;
+
+}
+
+/* Botao */
+button{
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    fort: size 16px;
+}
+
+button:hover{
+    background-color: #2980b9;
+}
+
+/* resultados */
+#resultado{
+    max-width: 600px;
+    margin: 30px auto 0 auto;
+}
+
+.produto {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.produto strong {
+    font-size: 18px;
+    display: block;
+}
+
+.produto em {
+    color: #777;
 }
